@@ -1,0 +1,21 @@
+---
+- name: Configure the inittab on an AIX Machine
+  hosts: aix
+  become: true
+  gather_facts: false
+  vars_files:
+    - vars.yml
+  vars: 
+    packages:
+      - vim
+      - unzip
+
+  tasks: 
+
+    - name: Install packages in the packages list
+      ansible.builtin.yum:
+        name: "{{ item }}"
+        state: latest
+        use_backend: yum4
+      loop:
+        - packages

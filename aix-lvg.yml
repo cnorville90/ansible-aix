@@ -1,0 +1,52 @@
+---
+- name: AIX Create a Volume group
+  hosts: aix
+  become: true
+  gather_facts: false
+  vars_files:
+    - vars.yml
+
+  tasks: 
+
+    - name: Create a new VG using a specified disk
+      ibm.power_aix.lvg:
+        state: present
+        vg_name: cool_vg
+        pvs: hdisk0
+        vg_type: scalable
+
+    - name: Varyon the VG
+      ibm.power_aix.lvg:
+        vg_name: cool_vg
+        state: varyon
+
+    - name: Create a new 5GB Logical Volume
+      ibm.power_aix.lvol:
+        vg: cool_vg
+        lv: cool_lv
+        size: "1G"
+        state: present
+
+    - name: Create a JFS filesystem on the Logical Volume
+      ibm.power_aix.filesystem:
+        state: present
+        device: cool_lv
+        filesystem: /testmount
+        fs_type: jfs2
+        attributes: size=32768,isnapshot='no'
+        mount_group: test
+
+    - name: Mount the new filesystem
+      ibm.power_aix.mount:
+        state: mount
+        mount_dir: /testmount
+
+    - name: Gather all LVM VG facts
+      ibm.power_aix.lvm_facts:
+        name: cool_vg
+        component: vg
+
+    - name: Print the LVM - Volume Group facts
+      debug:
+        var: ansible_facts.LVM.VGs
+

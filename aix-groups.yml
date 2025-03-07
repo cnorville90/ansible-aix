@@ -1,0 +1,17 @@
+---
+- name: AIX - Manage groups
+  hosts: aix
+  become: true
+  gather_facts: false
+  vars_files:
+    - vars.yml
+
+  tasks: 
+
+    - name: Add a group to an AIX system, add a user to the group
+      ibm.power_aix.group:
+        state: present
+        name: skeezers
+        user_list_action: 'add'
+        user_list_type: 'members'
+        users_list: 'aix_testuser'

@@ -1,0 +1,14 @@
+---
+- name: AIX - Unmount a filesystem
+  hosts: aix
+  become: true
+  gather_facts: false
+  vars_files:
+    - vars.yml
+
+  tasks: 
+
+    - name: Unmount the /testmount filesystem
+      ibm.power_aix.mount:
+        state: umount
+        mount_dir: /testmount

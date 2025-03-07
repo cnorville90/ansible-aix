@@ -1,0 +1,15 @@
+---
+- name: Run the FLRT Utility
+  hosts: aix
+  become: true
+  gather_facts: false
+  vars_files:
+    - vars.yml
+
+  tasks: 
+
+    - name: Download patches for security vulnerabilities
+      ibm.power_aix.flrtvc:
+        apar: sec
+        path: /usr/sys/inst.images
+        download_only: yes

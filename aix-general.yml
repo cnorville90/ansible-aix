@@ -1,0 +1,52 @@
+---
+- name: Test connectivity to AIX
+  hosts: aix
+  become: true
+  gather_facts: false
+
+  tasks: 
+
+    - name: Ping Module - Test basic connectivity
+      ping: 
+
+    - name: Retrieve the LPAR related information
+      ibm.power_aix.lpar_facts:
+
+    - name: Print the LPAR related information
+      debug:
+        var: ansible_facts.lpar
+
+    - name: List installed filesets for all of the bos.rte filesets
+      ibm.power_aix.lpp_facts:
+        filesets: bos.rte.*
+
+    - name: Print the fileset facts
+      debug:
+        var: ansible_facts.filesets
+
+    - name: Gather all LVM VG facts
+      ibm.power_aix.lvm_facts:
+        name: all
+        component: vg
+
+    - name: Print the LVM - Volume Group facts
+      debug:
+        var: ansible_facts.LVM.VGs
+
+    - name: Gather all LVM Physical Volume facts
+      ibm.power_aix.lvm_facts:
+        name: all
+        component: pv
+
+    - name: Print the LVM Physical Volume facts
+      debug:
+        var: ansible_facts.LVM.PVs
+
+    - name: Gather all LVM Logical Volume facts
+      ibm.power_aix.lvm_facts:
+        name: all
+        component: lv
+
+    - name: Print the LVM Logical Volume facts
+      debug:
+        var: ansible_facts.LVM.LVs

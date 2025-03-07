@@ -1,0 +1,13 @@
+---
+- name: List efixes
+  hosts: aix
+  become: true
+  gather_facts: false
+  vars_files:
+    - vars.yml
+
+  tasks: 
+
+    - name: List interim fix on the system
+      ibm.power_aix.emgr:
+        action: list

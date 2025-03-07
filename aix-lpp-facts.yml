@@ -1,0 +1,16 @@
+---
+- name: Gather facts on filesets
+  hosts: aix
+  become: true
+  gather_facts: false
+  vars_files:
+    - vars.yml
+
+  tasks: 
+
+    - name: Gather fileset facts
+      ibm.power_aix.lpp_facts:
+
+    - name: Print the fileset facts
+      ansible.builtin.debug:
+        var: ansible_facts.filesets
