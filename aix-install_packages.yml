@@ -3,19 +3,13 @@
   hosts: aix
   become: true
   gather_facts: false
-  vars_files:
-    - vars.yml
-  vars: 
-    packages:
-      - vim
-      - unzip
 
   tasks: 
 
     - name: Install packages in the packages list
-      ansible.builtin.yum:
+      ansible.builtin.dnf:
         name: "{{ item }}"
         state: latest
-        use_backend: yum4
+        use_backend: dnf4
       loop:
         - packages
