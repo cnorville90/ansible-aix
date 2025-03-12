@@ -1,8 +1,10 @@
 ---
-- name: Configure the inittab on an AIX Machine
+- name: Install Packages on AIX using the DNF utility
   hosts: aix
   become: true
   gather_facts: false
+  vars:
+    ansible_python_interpreter: /opt/freeware/bin/python3.9
 
   tasks: 
 
@@ -11,5 +13,4 @@
         name: "{{ item }}"
         state: latest
         use_backend: dnf4
-      loop:
-        - packages
+      loop: "{{ packages }}"
