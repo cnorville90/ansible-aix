@@ -3,8 +3,6 @@
   hosts: aix
   become: true
   gather_facts: false
-  vars:
-    ansible_python_interpreter: /opt/freeware/bin/python3.9
 
   tasks: 
 
