@@ -1,0 +1,19 @@
+---
+- name: Get FLRTVC Information for this machine
+  hosts: aix
+  become: true
+  gather_facts: true
+
+  tasks: 
+
+    - name: Get FLRTVC INformation
+      ibm.power_aix.flrtvc:
+        apar: sec
+        check_only: true
+      environment:
+        PATH: /usr/bin:/opt/freeware/bin
+      register: flrtvc
+
+    - name: Display FLRTVC Info
+      ansible.builtin.debug:
+        var: flrtvc
