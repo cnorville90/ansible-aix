@@ -1,15 +1,13 @@
 ---
-- name: Configure the inittab on an AIX Machine
+- name: Download and install the flrtvc utility for AIX
   hosts: aix
   become: true
   gather_facts: false
-  vars_files:
-    - vars.yml
 
   tasks: 
 
     - name: Download the FLRT utility from IBM
       ansible.builtin.unarchive:
-        src: https://esupport.ibm.com/customercare/sas/f/flrt3/FLRTVC-0.8.5.zip
-        dest: /usr/local/bin
+        src: https://esupport.ibm.com/customercare/sas/f/flrt3/FLRTVC-latest.zip
+        dest: /opt/freeware/bin
         remote_src: yes
