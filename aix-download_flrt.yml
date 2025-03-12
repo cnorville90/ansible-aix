@@ -4,10 +4,12 @@
   become: true
   gather_facts: false
 
-  tasks: 
+  tasks:
 
     - name: Download the FLRT utility from IBM
       ansible.builtin.unarchive:
         src: https://esupport.ibm.com/customercare/sas/f/flrt3/FLRTVC-latest.zip
         dest: /opt/freeware/bin
+        mode: 755
         remote_src: yes
+
