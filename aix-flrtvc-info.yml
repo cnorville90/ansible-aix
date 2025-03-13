@@ -6,7 +6,7 @@
 
   tasks: 
 
-    - name: Get FLRTVC INformation
+    - name: Get FLRTVC Information
       ibm.power_aix.flrtvc:
         apar: sec
         check_only: true
