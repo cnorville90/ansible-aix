@@ -5,7 +5,7 @@
 
   tasks:
 
-    - name: Allow the bob user to run any commands as alice with sudo -u alice
+    - name: Add a user to sudoers - FULL ACCESS
       community.general.sudoers:
         name: full-access
         state: present
