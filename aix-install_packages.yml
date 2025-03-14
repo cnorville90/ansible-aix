@@ -4,9 +4,9 @@
   become: true
   gather_facts: false
 
-  tasks: 
+  tasks:
 
-    - name: Install packages in the packages list
+    - name: Install packages in the packages list using the DNF utility
       ansible.builtin.dnf:
         name: "{{ item }}"
         state: latest
