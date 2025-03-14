@@ -7,7 +7,7 @@
 
   tasks: 
 
-    - name: Add a user to an AIX system 
+    - name: Add a user to an AIX system
       ibm.power_aix.user:
         state: present
         name: "{{ aix_newuser }}"
