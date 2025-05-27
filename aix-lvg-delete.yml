@@ -1,0 +1,38 @@
+---
+- name: AIX Deletes a Volume group and all underlying resources
+  hosts: aix
+  become: true
+  gather_facts: false
+
+  tasks: 
+
+    - name: 1 - unmount the new filesystem
+      ibm.power_aix.mount:
+        state: umount
+        mount_dir: /testmount
+        mount_over_dir: /testmount
+
+    - name: 2 - Delete a JFS filesystem on the Logical Volume
+      ibm.power_aix.filesystem:
+        state: absent
+        device: cool_lv
+        filesystem: /testmount
+        fs_type: jfs2
+        attributes: size=32768,isnapshot='no'
+        mount_group: test
+
+    - name: 3 - Delete Logical Volume
+      ibm.power_aix.lvol:
+        vg: cool_vg
+        lv: cool_lv
+        size: "200M"
+        state: absent
+
+    - name: Delete new VG using a specified disk
+      ibm.power_aix.lvg:
+        state: absent
+        vg_name: cool_vg
+        pvs: hdisk0
+        vg_type: scalable
+
+

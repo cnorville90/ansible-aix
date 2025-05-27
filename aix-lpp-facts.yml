@@ -3,8 +3,6 @@
   hosts: aix
   become: true
   gather_facts: false
-  vars_files:
-    - vars.yml
 
   tasks: 
 

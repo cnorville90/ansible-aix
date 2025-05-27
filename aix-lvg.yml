@@ -3,8 +3,6 @@
   hosts: aix
   become: true
   gather_facts: false
-  vars_files:
-    - vars.yml
 
   tasks: 
 
@@ -24,7 +22,7 @@
       ibm.power_aix.lvol:
         vg: cool_vg
         lv: cool_lv
-        size: "1G"
+        size: "200M"
         state: present
 
     - name: Create a JFS filesystem on the Logical Volume
