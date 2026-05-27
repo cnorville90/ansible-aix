@@ -18,7 +18,7 @@
         vg_name: cool_vg
         state: varyon
 
-    - name: Create a new 5GB Logical Volume
+    - name: Create a new 200MB Logical Volume
       ibm.power_aix.lvol:
         vg: cool_vg
         lv: cool_lv
@@ -45,6 +45,6 @@
         component: vg
 
     - name: Print the LVM - Volume Group facts
-      debug:
+      ansible.builtin.debug:
         var: ansible_facts.LVM.VGs
 
